@@ -1,34 +1,37 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.*;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         try{
-            BufferedReader read = new BufferedReader(new FileReader("/home/shivam/Project1/matches.csv"));
-            List<String> lines = new ArrayList<>();
-            String line;
-            while((line= read.readLine())!=null){
-                lines.add(line);
+            BufferedReader readDeliveries = new BufferedReader(new FileReader("/home/shivam/Project1/deliveries.csv"));
+            BufferedReader readMatches = new BufferedReader(new FileReader("/home/shivam/Project1/matches.csv"));
+            List<String> linesDeliveries = new ArrayList<>();
+            List<String> linesMatches = new ArrayList<>();
+            String lineD,lineM;
+            while((lineD = readDeliveries.readLine())!= null){
+                linesDeliveries.add(lineD);
             }
-            lines.remove(0);
-            HashMap<String, Integer> hsmap = new HashMap<>();
-            for(String s : lines){
-                List<String> str = new ArrayList<>(Arrays.asList(s.split(",")));
-                if(hsmap.containsKey(str.get(1))){
-                    int value = hsmap.get(str.get(1));
-                    hsmap.put(str.get(1),value+1);
-                }
-                else {
-                    hsmap.put(str.get(1),1);
-                }
+            while((lineM = readMatches.readLine())!=null){
+                linesMatches.add(lineM);
             }
-            System.out.println(hsmap);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            linesDeliveries.remove(0);
+            linesMatches.remove(0);
+            System.out.println();
+            firstTask.calculateMatchesPlayed(linesMatches);
+            System.out.println();
+            secondTask.matchesWonByTeamOverYears(linesMatches);
+            System.out.println();
+            thirdTask.extraRunsPerTeamIn2016(linesMatches,linesDeliveries);
+            System.out.println();
+            fourthTask.topEconomicalBowler2015(linesMatches,linesDeliveries);
+            System.out.println();
+            fifthTask.matchesTiedInYearsInBetweenTeams(linesMatches);
+        }
+        catch(Exception e){
+            e.getStackTrace();
         }
 
     }
